@@ -29,9 +29,7 @@ export const setupServer = () => {
 
   app.get('/contacts/:contactId', async (req, res) => {
     const { contactId } = req.params;
-    console.log(`req.params.contactId: ${contactId}`);
-    const contact = await getContactById(Number(contactId));
-    console.log(`DB Response "getContactById": ${contact}`);
+    const contact = await getContactById(contactId);
     if (!contact) {
       res.status(404).json({
         status: 404,
