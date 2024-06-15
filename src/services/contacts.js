@@ -9,3 +9,20 @@ export const getContactById = async (contactId) => {
   const contact = await ContactsCollection.findById(contactId);
   return contact;
 };
+
+export const createContact = async ({
+  name,
+  phoneNumber,
+  email = null,
+  isFavorite = false,
+  contactType = 'personal',
+}) => {
+  const contact = await ContactsCollection.create({
+    name,
+    phoneNumber,
+    email,
+    isFavorite,
+    contactType,
+  });
+  return contact;
+};
