@@ -26,3 +26,13 @@ export const createContact = async ({
   });
   return contact;
 };
+
+export const updateContact = async (contactId, payload) => {
+  const rawResult = await ContactsCollection.findOneAndUpdate(
+    { _id: contactId },
+    payload,
+    { new: true, includeResultMetadata: true },
+  );
+
+  return rawResult;
+};
