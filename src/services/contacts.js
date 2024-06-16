@@ -15,8 +15,8 @@ export const getAllContacts = async ({
   if (filter.type) {
     contactsQuery.where('contactType').equals(filter.type);
   }
-  if (filter.isFavorite) {
-    contactsQuery.where('isFavorite').equals(filter.isFavorite);
+  if (filter.isFavourite) {
+    contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
 
   const [contactsCount, contacts] = await Promise.all([
@@ -45,14 +45,14 @@ export const createContact = async ({
   name,
   phoneNumber,
   email = null,
-  isFavorite = false,
+  isFavourite = false,
   contactType = 'personal',
 }) => {
   const contact = await ContactsCollection.create({
     name,
     phoneNumber,
     email,
-    isFavorite,
+    isFavourite,
     contactType,
   });
   return contact;

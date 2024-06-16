@@ -7,14 +7,14 @@ const parseContactType = (contactType) => {
   return contactType;
 };
 
-const parseIsFavorite = (isFavorite) => {
-  if (typeof isFavorite !== 'boolean') return;
-  return isFavorite;
+const parseIsFavourite = (isFavourite) => {
+  if (typeof isFavourite !== 'boolean') return;
+  return isFavourite;
 };
 
-export const parseFilterParams = ({ type, isFavorite }) => {
+export const parseFilterParams = ({ type, isFavourite }) => {
   return {
     type: parseContactType(type),
-    isFavorite: parseIsFavorite(isFavorite),
+    isFavourite: parseIsFavourite(isFavourite),
   };
 };

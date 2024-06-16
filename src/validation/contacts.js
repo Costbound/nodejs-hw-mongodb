@@ -16,7 +16,7 @@ export const createContactSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { deny: ['ru'] } })
     .message('Please enter valid email'),
-  isFavorite: Joi.boolean(),
+  isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
 
@@ -34,6 +34,6 @@ export const updateContactSchema = Joi.object({
   email: Joi.string()
     .email({ tlds: { deny: ['ru'] } })
     .message('Please enter valid email'),
-  isFavorite: Joi.boolean(),
+  isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
 });
