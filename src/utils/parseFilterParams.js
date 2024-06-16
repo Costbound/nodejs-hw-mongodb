@@ -8,8 +8,7 @@ const parseContactType = (contactType) => {
 };
 
 const parseIsFavourite = (isFavourite) => {
-  if (isFavourite !== 'true' || isFavourite !== 'false') return;
-  return isFavourite;
+  return isFavourite === 'true' ? true : isFavourite === 'false' ? false : null;
 };
 
 export const parseFilterParams = ({ type, isFavourite }) => {
