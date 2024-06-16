@@ -3,7 +3,7 @@ export const calculatePaginationData = (count, page, perPage) => {
   return {
     page,
     perPage,
-    totalItems: 250,
+    totalItems: count,
     totalPages,
     hasNextPage: Boolean(totalPages - page),
     hasPreviousPage: page !== 1,

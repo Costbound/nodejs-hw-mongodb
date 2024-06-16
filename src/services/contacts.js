@@ -10,8 +10,6 @@ export const getAllContacts = async ({ page, perPage }) => {
 
   const contacts = await contactsQuery.skip(skip).limit(perPage).exec();
 
-  console.log(`getAllContacts: 'contactsCount' is ${contactsCount}`);
-
   const paginationData = calculatePaginationData(contactsCount, page, perPage);
 
   return {
