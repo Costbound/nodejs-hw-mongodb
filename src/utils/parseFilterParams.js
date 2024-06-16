@@ -8,11 +8,7 @@ const parseContactType = (contactType) => {
 };
 
 const parseIsFavourite = (isFavourite) => {
-  console.log(
-    `parseIsFavourite: isFavourite ${isFavourite}, type ${typeof isFavourite}`,
-  );
-  if (typeof isFavourite !== 'boolean') return;
-  console.log('parseIsFavourite: after check');
+  if (isFavourite !== 'true' || isFavourite !== 'false') return;
   return isFavourite;
 };
 
