@@ -9,8 +9,7 @@ import {
 import { parsePaginationParams } from '../utils/parsePAginationParams.js';
 
 export const getContactsController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.query);
-  const contacts = await getAllContacts({ page, perPage });
+  const contacts = await getAllContacts(parsePaginationParams(req.query));
   res.status(200).json({
     status: 200,
     message: 'Successfully found contacts!',
