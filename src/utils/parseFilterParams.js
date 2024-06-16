@@ -2,7 +2,7 @@ const parseContactType = (contactType) => {
   if (typeof contactType !== 'string') return;
   const isValidContactType = ['personal', 'home', 'work'].includes(contactType);
 
-  if (!isValidContactType(contactType)) return;
+  if (!isValidContactType) return;
 
   return contactType;
 };
