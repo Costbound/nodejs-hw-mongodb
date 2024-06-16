@@ -2,7 +2,6 @@ import { HttpError } from 'http-errors';
 
 // eslint-disable-next-line no-unused-vars
 export const errorHandler = (err, req, res, next) => {
-  console.log(`ErrorHandler: err is`, err);
   if (err instanceof HttpError) {
     const responseData = {
       status: err.status,
@@ -13,6 +12,7 @@ export const errorHandler = (err, req, res, next) => {
       responseData.data.errors = err.errors;
     }
     res.status(err.status).json(responseData);
+    return;
   }
   res.status(500).json({
     satus: 500,
