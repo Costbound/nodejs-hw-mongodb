@@ -10,11 +10,11 @@ export const getAllContacts = async ({ page, perPage }) => {
 
   const contacts = await contactsQuery.skip(skip).limit(perPage).exec();
 
-  // const paginationData = calculatePaginationData(contactsCount, page, perPage);
+  const paginationData = calculatePaginationData(contactsCount, page, perPage);
 
   return {
-    data: contacts,
-    // ...paginationData,
+    contacts: contacts,
+    ...paginationData,
   };
 };
 
