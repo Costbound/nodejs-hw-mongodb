@@ -12,6 +12,7 @@ const parseIsFavourite = (isFavourite) => {
     `parseIsFavourite: isFavourite ${isFavourite}, type ${typeof isFavourite}`,
   );
   if (typeof isFavourite !== 'boolean') return;
+  console.log('parseIsFavourite: after check');
   return isFavourite;
 };
 
