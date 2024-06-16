@@ -1,5 +1,4 @@
 export const calculatePaginationData = (count, page, perPage) => {
-  console.log(`calculatePaginationData: 'count' is ${count}`);
   const totalPages = Math.ceil(count / perPage);
   return {
     page,
