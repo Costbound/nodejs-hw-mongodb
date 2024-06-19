@@ -6,7 +6,7 @@ import { registerUserSchema } from '../validation/auth.js';
 
 const router = new Router();
 
-router.get(
+router.post(
   '/register',
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
