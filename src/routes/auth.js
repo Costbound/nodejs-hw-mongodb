@@ -8,11 +8,8 @@ import {
 } from '../controllers/auth.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { loginUserSchema, registerUserSchema } from '../validation/auth.js';
-import { authenticate } from '../middlewares/authenticate.js';
 
 const router = new Router();
-
-router.use(authenticate);
 
 router.post(
   '/register',
