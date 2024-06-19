@@ -4,7 +4,7 @@ import pino from 'pino-http';
 import { env } from './utils/env.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import router from './routes/contacts.js';
+import router from './routes/index.js';
 
 const PORT = Number(env('PORT', 3000));
 
