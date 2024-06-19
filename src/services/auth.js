@@ -22,7 +22,7 @@ export const loginUser = async (payload) => {
 
   if (!user) throw createHttpError(401);
 
-  const isPasswordEqual = bcrypt.compare(payload.password, user.password);
+  const isPasswordEqual = await bcrypt.compare(payload.password, user.password);
 
   if (!isPasswordEqual) throw createHttpError(401);
 
