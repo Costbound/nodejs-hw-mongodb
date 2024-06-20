@@ -9,6 +9,7 @@ import {
 import { parsePaginationParams } from '../utils/parsePAginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+import { isValidObjectId } from 'mongoose';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -20,6 +21,7 @@ export const getContactsController = async (req, res) => {
     sortBy,
     sortOrder,
     filter,
+    userId: req.user._id,
   });
   res.status(200).json({
     status: 200,
@@ -30,7 +32,7 @@ export const getContactsController = async (req, res) => {
 
 export const getContactsByIdController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await getContactById(contactId);
+  const contact = await getContactById(contactId, req.user._id);
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
     return;
@@ -43,7 +45,14 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  const contact = await createContact(req.body);
+  if (!isValidObjectId(req.user._id))
+    throw createHttpError(401, 'Not authorized');
+
+  const newContactData = {
+    userId: req.user._id,
+    ...req.body,
+  };
+  const contact = await createContact(newContactData);
 
   res.status(201).json({
     status: 201,
@@ -53,7 +62,11 @@ export const createContactController = async (req, res) => {
 };
 
 export const updateContactController = async (req, res, next) => {
-  const updatedContact = await updateContact(req.params.contactId, req.body);
+  const updatedContact = await updateContact(
+    req.params.contactId,
+    req.user._id,
+    req.body,
+  );
 
   if (!updatedContact) {
     next(createHttpError(404, 'Contact not found'));
@@ -68,7 +81,10 @@ export const updateContactController = async (req, res, next) => {
 };
 
 export const deleteContactController = async (req, res, next) => {
-  const deletedContact = await deleteContact(req.params.contactId);
+  const deletedContact = await deleteContact(
+    req.params.contactId,
+    req.user._id,
+  );
 
   if (!deletedContact) {
     next(createHttpError(404, 'Contact not found'));
