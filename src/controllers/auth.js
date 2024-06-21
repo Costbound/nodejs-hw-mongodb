@@ -5,7 +5,7 @@ import {
   registerUser,
 } from '../services/auth.js';
 import { setupSession } from '../utils/session.js';
-import { requestResetToken } from '../validation/auth.js';
+import { requestResetToken } from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
