@@ -92,7 +92,7 @@ export const requestResetToken = async (email) => {
     path.join(TEMPLATES_DIR, 'reset-password-email.html'),
     'utf8',
   );
-  const template = handlebars.complite(templateSource);
+  const template = handlebars.compile(templateSource);
   const html = template({
     name: user.name,
     action_url: `${env('APP_DOMAIN')}/reset-password?token=${resetToken}`,
