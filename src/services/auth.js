@@ -125,10 +125,15 @@ export const resetPassword = async (payload) => {
 
   await SessionsCollection.deleteOne({ userId: user._id });
 
+  console.log(`Payload password: ${payload.password}`);
+
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  await UsersCollection.findOneAndUpdate(
+  console.log(`Encrypted password: ${encryptedPassword}`);
+
+  return await UsersCollection.findOneAndUpdate(
     { id: user._id },
     { password: encryptedPassword },
+    { new: true },
   );
 };
