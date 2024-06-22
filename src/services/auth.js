@@ -125,15 +125,15 @@ export const resetPassword = async (payload) => {
 
   await SessionsCollection.deleteOne({ userId: user._id });
 
-  console.log(`Payload password: ${payload.password}`);
-
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  console.log(`Encrypted password: ${encryptedPassword}`);
-
-  return await UsersCollection.findOneAndUpdate(
-    { id: user._id },
+  const updatedUser = await UsersCollection.findOneAndUpdate(
+    { _id: user._id },
     { password: encryptedPassword },
     { new: true },
   );
+
+  if (!updatedUser) throw createHttpError(500, 'Fail to update password');
+
+  return updatedUser;
 };
