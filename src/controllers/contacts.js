@@ -46,15 +46,11 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  if (!isValidObjectId(req.user._id))
+  if (!isValidObjectId(req.user._id)) {
     throw createHttpError(401, 'Not authorized');
+  }
 
-  console.log(`Request file:`, req.file);
-  console.log(`Request body:`, req.body);
-
-  const photoUrl = (await req.file)
-    ? await saveFileToCloudinary(req.file)
-    : 'not found';
+  const photoUrl = await saveFileToCloudinary(req.file);
 
   const newContactData = {
     userId: req.user._id,
