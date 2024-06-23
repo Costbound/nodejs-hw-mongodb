@@ -68,8 +68,8 @@ export const createContactController = async (req, res) => {
 };
 
 export const updateContactController = async (req, res, next) => {
-  console.log(`Request file: ${req.file}`);
-  console.log(`Request body: ${req.body}`);
+  console.log(`Request file:`, req.file);
+  console.log(`Request body:`, req.body);
   const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
 
   const updatedContact = await updateContact(
