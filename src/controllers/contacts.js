@@ -10,6 +10,7 @@ import { parsePaginationParams } from '../utils/parsePAginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 import { isValidObjectId } from 'mongoose';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -48,9 +49,12 @@ export const createContactController = async (req, res) => {
   if (!isValidObjectId(req.user._id))
     throw createHttpError(401, 'Not authorized');
 
+  const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
+
   const newContactData = {
     userId: req.user._id,
     ...req.body,
+    photoUrl,
   };
   const contact = await createContact(newContactData);
 
@@ -62,10 +66,13 @@ export const createContactController = async (req, res) => {
 };
 
 export const updateContactController = async (req, res, next) => {
+  const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
+
   const updatedContact = await updateContact(
     req.params.contactId,
     req.user._id,
     req.body,
+    photoUrl,
   );
 
   if (!updatedContact) {
