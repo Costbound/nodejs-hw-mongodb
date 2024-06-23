@@ -123,22 +123,17 @@ export const resetPassword = async (payload) => {
 
   if (!user) throw createHttpError(404, 'User not found');
 
-  const encryptedPassword = await bcrypt.hash(payload.password, 10);
-
   const isNewPasswordEqualOld = await bcrypt.compare(
-    encryptedPassword,
+    payload.password,
     user.password,
   );
-
-  console.log(isNewPasswordEqualOld);
-
   if (isNewPasswordEqualOld)
     throw createHttpError(
       401,
       'New password must be different from the old password',
     );
 
-  await SessionsCollection.deleteOne({ userId: user._id });
+  const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
   const updatedUser = await UsersCollection.findOneAndUpdate(
     { _id: user._id },
@@ -147,6 +142,8 @@ export const resetPassword = async (payload) => {
   );
 
   if (!updatedUser) throw createHttpError(500, 'Fail to update password');
+
+  await SessionsCollection.deleteOne({ userId: user._id });
 
   return updatedUser;
 };
