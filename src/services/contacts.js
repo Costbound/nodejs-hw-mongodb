@@ -58,7 +58,7 @@ export const createContact = async ({
     isFavourite,
     contactType,
     userId,
-    photoUrl,
+    photo: photoUrl,
   });
   return contact;
 };

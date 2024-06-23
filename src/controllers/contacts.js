@@ -49,7 +49,8 @@ export const createContactController = async (req, res) => {
   if (!isValidObjectId(req.user._id))
     throw createHttpError(401, 'Not authorized');
 
-  console.log(`Req data: ${req.body}`);
+  console.log(`Request file:`, req.file);
+  console.log(`Request body:`, req.body);
 
   const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
 
