@@ -45,7 +45,7 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  const photoUrl = await saveFileToCloudinary(req.file);
+  const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
 
   const newContactData = {
     userId: req.user._id,
@@ -64,7 +64,7 @@ export const createContactController = async (req, res) => {
 };
 
 export const updateContactController = async (req, res, next) => {
-  const photoUrl = await saveFileToCloudinary(req.file);
+  const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
   if (photoUrl) req.body.photoUrl = photoUrl;
 
   const updatedContact = await updateContact(
