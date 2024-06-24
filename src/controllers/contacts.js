@@ -52,7 +52,7 @@ export const createContactController = async (req, res) => {
     ...req.body,
   };
 
-  if (photoUrl) newContactData.photoUrl = photoUrl;
+  if (photoUrl) newContactData.photo = photoUrl;
 
   const contact = await createContact(newContactData);
 
@@ -65,7 +65,7 @@ export const createContactController = async (req, res) => {
 
 export const updateContactController = async (req, res, next) => {
   const photoUrl = req.file ? await saveFileToCloudinary(req.file) : null;
-  if (photoUrl) req.body.photoUrl = photoUrl;
+  if (photoUrl) req.body.photo = photoUrl;
 
   const updatedContact = await updateContact(
     req.params.contactId,
