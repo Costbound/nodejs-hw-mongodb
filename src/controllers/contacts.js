@@ -9,7 +9,6 @@ import {
 import { parsePaginationParams } from '../utils/parsePAginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-import { isValidObjectId } from 'mongoose';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getContactsController = async (req, res) => {
@@ -46,17 +45,15 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  if (!isValidObjectId(req.user._id)) {
-    throw createHttpError(401, 'Not authorized');
-  }
-
   const photoUrl = await saveFileToCloudinary(req.file);
 
   const newContactData = {
     userId: req.user._id,
     ...req.body,
-    photoUrl,
   };
+
+  if (photoUrl) newContactData.photoUrl = photoUrl;
+
   const contact = await createContact(newContactData);
 
   res.status(201).json({
@@ -67,17 +64,13 @@ export const createContactController = async (req, res) => {
 };
 
 export const updateContactController = async (req, res, next) => {
-  console.log(`Request file:`, req.file);
-  console.log(`Request body:`, req.body);
-  const photoUrl = (await req.file)
-    ? await saveFileToCloudinary(req.file)
-    : 'not found';
+  const photoUrl = await saveFileToCloudinary(req.file);
+  if (photoUrl) req.body.photoUrl = photoUrl;
 
   const updatedContact = await updateContact(
     req.params.contactId,
     req.user._id,
     req.body,
-    photoUrl,
   );
 
   if (!updatedContact) {
