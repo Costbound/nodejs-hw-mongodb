@@ -36,7 +36,7 @@ parameters:
     schema:
       type: string
       enum: ['work', 'home', 'personel']
-      example: 'home'
+      example: ['work', 'home', 'personel']
     description: 'Filtration of contacts by contact type'
   - in: query
     name: isFavourite
