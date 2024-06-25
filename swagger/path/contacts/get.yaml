@@ -41,10 +41,10 @@ parameters:
   - in: query
     name: isFavourite
     schema:
-      type: boolean
+      type: string
       example: true
-      enum: [true]
-    description: 'Filter flag. Return only favorite contacts if this flag settet true'
+      enum: ['true']
+    description: 'Filter flag. Return only favorite contacts if parameter is "true"'
 responses:
   '200':
     description: 'Return you list of all contacts linked to current user'
