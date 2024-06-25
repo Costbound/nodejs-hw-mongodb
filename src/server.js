@@ -6,6 +6,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import router from './routes/index.js';
 import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 const PORT = Number(env('PORT', 3000));
 
@@ -14,6 +15,7 @@ export const setupServer = () => {
 
   app.use(cors());
   app.use(express.json());
+  app.use('/api-docs', swaggerDocs());
   app.use(cookieParser());
   app.use(
     pino({

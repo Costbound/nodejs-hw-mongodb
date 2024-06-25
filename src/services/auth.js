@@ -54,7 +54,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     new Date() > new Date(session.refreshTokenValidUntil);
 
   if (isRefreshTokenExpired)
-    throw createHttpError(401, 'Session token expired');
+    throw createHttpError(401, 'Refresh token expired');
 
   const newSession = createSession();
 
