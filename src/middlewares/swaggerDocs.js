@@ -6,7 +6,7 @@ import { SWAGGER_PATH } from '../constants/index.js';
 export const swaggerDocs = () => {
   try {
     const swaggerDoc = JSON.parse(fs.readFileSync(SWAGGER_PATH).toString());
-    return [...swaggerUI.serve.swaggerUI.setup(swaggerDoc)];
+    return [...swaggerUI.serve, swaggerUI.setup(swaggerDoc)];
   } catch (err) {
     console.log(err);
     return (req, res, next) =>
